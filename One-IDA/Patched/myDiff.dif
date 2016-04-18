@@ -1,0 +1,8 @@
+This difference file is created by The Interactive Disassembler
+
+One.exe
+0000050B: 75 90
+0000050C: 14 90
+00000510: 72 90
+00000511: 0F 90
+0000051F: 74 75

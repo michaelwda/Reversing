@@ -1,0 +1,35 @@
+Top of file is filled with function stubs and implementation. I'm assuming this is all the stuff I brought in with <IOStream> and <string>.
+
+using the strings view is an easy way to quickly find my code. Also, on names window you can find "main" to jump there.
+
+IDA graph view is really wonky. I guess it would be nice to quickly see the program flow, but seems useless for large programs. Text view seems a lot better.
+
+Inline comments and renaming will be very useful for analysis. 
+
+I created a release version of the exe with security checks disabled. Security checks do some additional work in the prolog of the main function and it was rather strange to understand at first
+
+ push    ebp              
+.text:00416800                                         
+.text:00416801                 mov     ebp, esp       
+.text:00416801                                         
+.text:00416803                 push    0FFFFFFFFh      
+.text:00416803                                         
+.text:00416805                 push    offset loc_41B408 ; exception handling
+.text:0041680A                 mov     eax, large fs:0
+.text:00416810                 push    eax
+.text:00416811                 sub     esp, 0F4h
+.text:00416817                 push    ebx
+.text:00416818                 push    esi
+.text:00416819                 push    edi
+.text:0041681A                 lea     edi, [ebp+var_100]
+.text:00416820                 mov     ecx, 3Dh
+.text:00416825                 mov     eax, 0CCCCCCCCh
+.text:0041682A                 rep stosd
+.text:0041682C                 mov     eax, __security_cookie
+
+
+Looks like all that stuff is setting up and SEH Frame. I don't completely understand it all, but i'm trying to. 
+rep stosd seems like a cool instruction for loading data.
+
+The version compiled with no security checks is a lot more approachable. But I'll probably only do that for the first one because it seems like most code is going to have these checks. Unless maybe people disable it for speed?
+
